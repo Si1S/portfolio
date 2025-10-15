@@ -1,398 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Professional</title>
-    <style>
-        :root {
-            --background: #0f0f11;
-            --text: #ffffff;
-            --accent: #00f0ff;
-            --surface: #1a1a1f;
-            --surface-hover: #25252d;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-        
-        body {
-            background-color: var(--background);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            line-height: 1.6;
-            padding: 2rem;
-        }
-        
-        .card {
-            background-color: var(--surface);
-            max-width: 500px;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-        
-        .card-header {
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        .glow {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 100px;
-            background: var(--accent);
-            border-radius: 50%;
-            filter: blur(70px);
-            opacity: 0.5;
-            z-index: 0;
-        }
-        
-        .avatar {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 1.5rem;
-            background-color: var(--surface-hover);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--accent);
-            z-index: 1;
-        }
-        
-        .title {
-            position: relative;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            z-index: 1;
-        }
-        
-        .subtitle {
-            position: relative;
-            color: var(--accent);
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            z-index: 1;
-        }
-        
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .badge {
-            background-color: rgba(0, 240, 255, 0.1);
-            color: var(--accent);
-            padding: 0.4rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .card-body {
-            padding: 0 2rem 2rem;
-        }
-        
-        .bio {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background-color: var(--surface-hover);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.2s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        
-        .btn {
-            display: block;
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        
-        .btn-primary {
-            background-color: var(--accent);
-            color: var(--background);
-        }
-        
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.12);
-            transform: translateY(-2px);
-        }
-        
-        .footer {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--surface-hover);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-            font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-        
-        .social-link:hover {
-            background-color: var(--accent);
-            color: var(--background);
-            transform: translateY(-3px);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jean-René Guérin | Cybersecurity Professional</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --background: #0f0f11;
+      --text: #f5f5f7;
+      --accent: #00f0ff;
+      --surface: rgba(26, 26, 31, 0.7);
+      --surface-hover: rgba(37, 37, 45, 0.8);
+      --blur: 12px;
+    }
 
-        .monitor {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.5);
-            display: flex;
-            align-items: center;
-        }
-        
-        .pulse {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(0.8);
-                opacity: 0.7;
-            }
-        }
-        
-        /* Matrix effect */
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        @media (max-width: 500px) {
-            .title {
-                font-size: 1.5rem;
-            }
-            
-            .avatar {
-                width: 80px;
-                height: 80px;
-                font-size: 2rem;
-            }
-            
-            .card-header {
-                padding: 1.5rem 1.5rem 1rem;
-            }
-            
-            .card-body {
-                padding: 0 1.5rem 1.5rem;
-            }
-            
-            .stat-number {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      line-height: 1.6;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    #matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .card {
+      backdrop-filter: blur(var(--blur));
+      background-color: var(--surface);
+      max-width: 520px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .card-header {
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .glow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: var(--accent);
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .avatar {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.2rem;
+      background-color: var(--surface-hover);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: var(--accent);
+      z-index: 1;
+      border: 2px solid rgba(0, 240, 255, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      position: relative;
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      background-color: rgba(0, 240, 255, 0.1);
+      color: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .card-body {
+      padding: 0 2rem 2rem;
+      text-align: center;
+    }
+
+    .bio {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background-color: var(--surface-hover);
+      padding: 1.2rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.25s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .btn {
+      display: block;
+      padding: 0.9rem;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: var(--background);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-link {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background-color: var(--surface-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background-color: var(--accent);
+      color: var(--background);
+      transform: translateY(-4px) scale(1.1);
+    }
+
+    .monitor {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      padding-bottom: 1rem;
+    }
+
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      animation: pulse 2s infinite;
+    }
+
+    /* Projects Section */
+    .projects-section {
+      max-width: 1000px;
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .project-card {
+      background-color: var(--surface-hover);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: left;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 240, 255, 0.1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    }
+
+    .project-card i {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.5;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.8); opacity: 0.7; }
+      50% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      .card { max-width: 90%; }
+      .title { font-size: 1.6rem; }
+      .avatar { width: 80px; height: 80px; font-size: 2.2rem; }
+      .stat-number { font-size: 1.4rem; }
+    }
+  </style>
 </head>
+
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    
-    <div class="card">
-        <div class="card-header">
-            <div class="glow"></div>
-            <div class="avatar">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <h1 class="title">John Doe</h1>
-            <div class="subtitle">System Admin & SOC Analyst</div>
-            <div class="badge-container">
-                <div class="badge">Cybersecurity</div>
-                <div class="badge">DevOps</div>
-                <div class="badge">Cloud</div>
-            </div>
-        </div>
-        
-        <div class="card-body">
-            <p class="bio">
-                Specialized in securing critical infrastructure, threat detection, and incident response with over 5 years of experience protecting enterprise systems.
-            </p>
-            
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Uptime</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">15min</div>
-                    <div class="stat-label">Response Time</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">200+</div>
-                    <div class="stat-label">Systems Managed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">350+</div>
-                    <div class="stat-label">Threats Mitigated</div>
-                </div>
-            </div>
-            
-            <div class="btn-container">
-                <a href="mailto:security@example.com" class="btn btn-primary">Contact Me</a>
-                <a href="#" class="btn btn-secondary">Download Resume</a>
-            </div>
-        </div>
-        
-        <div class="monitor">
-            <div class="pulse"></div>
-            <span>System monitoring active</span>
-        </div>
+  <canvas id="matrix-canvas"></canvas>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="glow"></div>
+      <div class="avatar"><i class="fas fa-shield-alt"></i></div>
+      <h1 class="title">John Doe</h1>
+      <div class="subtitle">System Admin & SOC Analyst</div>
+      <div class="badge-container">
+        <div class="badge">Cybersecurity</div>
+        <div class="badge">DevOps</div>
+        <div class="badge">Cloud</div>
+      </div>
     </div>
-    
-    <div class="footer">
-        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+
+    <div class="card-body">
+      <p class="bio">
+        Expert in securing infrastructures, monitoring systems, and mitigating threats.
+        Passionate about automation, cloud security, and proactive defense strategies.
+      </p>
+
+      <div class="stats">
+        <div class="stat-card"><div class="stat-number">99.9%</div><div class="stat-label">Uptime</div></div>
+        <div class="stat-card"><div class="stat-number">15min</div><div class="stat-label">Avg Response</div></div>
+        <div class="stat-card"><div class="stat-number">200+</div><div class="stat-label">Systems Managed</div></div>
+        <div class="stat-card"><div class="stat-number">350+</div><div class="stat-label">Threats Mitigated</div></div>
+      </div>
+
+      <div class="btn-container">
+        <a href="mailto:security@example.com" class="btn btn-primary">Contact Me</a>
+        <a href="#" class="btn btn-secondary">Download Resume</a>
+      </div>
     </div>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        // Matrix effect
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-        
-        const chars = '01'.split('');
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        
-        const drops = [];
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * -50);
+
+    <div class="monitor">
+      <span class="pulse"></span> Monitoring system: Online
+    </div>
+  </div>
+
+  <section class="projects-section">
+    <h2 class="section-title">Projects & Certifications</h2>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <i class="fas fa-network-wired"></i>
+        <h3>Enterprise Network Hardening</h3>
+        <p>Implemented advanced firewall rules and IDS systems reducing unauthorized access attempts by 80%.</p>
+      </div>
+
+      <div class="project-card">
+        <i class="fas fa-cloud"></i>
+        <h3>Cloud Security Automation</h3>
+        <p>Developed AWS Lambda scripts to automatically detect and isolate compromised EC2 instances.</p>
+      </div>
+
+      <div class="project-card">
+        <i class="fas fa-lock"></i>
+        <h3>SIEM Optimization</h3>
+        <p>Configured and optimized Splunk dashboards for real-time alerting and faster incident triage.</p>
+      </div>
+
+      <div class="project-card">
+        <i class="fas fa-certificate"></i>
+        <h3>Certifications</h3>
+        <p>✅ CompTIA Security+<br>✅ AWS Certified Security<br>✅ Cisco CCNA Cyber Ops</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+  </div>
+
+  <script>
+    // Matrix rain background
+    const canvas = document.getElementById("matrix-canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01";
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(0);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(15, 15, 17, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(0, 240, 255, 0.3)";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
-        
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(15, 15, 17, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = 'rgba(0, 240, 255, 0.3)';
-            ctx.font = `${fontSize}px monospace`;
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                
-                drops[i]++;
-            }
-        }
-        
-        setInterval(drawMatrix, 50);
-    </script>
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 45);
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
