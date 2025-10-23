@@ -412,9 +412,9 @@
         .then(res => res.json())
         .then(data => {
           document.getElementById("cert-iframe").src = data.url + "#toolbar=0";
-        });
+        })
+        .catch(err => console.error("Erreur fetch PDF:", err));
       </script>
-
 
     </div>
   </section>
