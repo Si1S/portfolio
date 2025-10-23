@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jean-René Guérin | Cybersecurity Professional</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- PDF.js depuis CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  
   <style>
     :root {
       --background: #0f0f11;
@@ -310,6 +314,96 @@
       line-height: 1.5;
     }
 
+    /* PDF Viewer Styles */
+    .pdf-viewer-container {
+      margin-top: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .pdf-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    .pdf-controls button {
+      background: var(--accent);
+      color: var(--background);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .pdf-controls button:hover:not(:disabled) {
+      background: #00d4e6;
+      transform: translateY(-2px);
+    }
+
+    .pdf-controls button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .page-info {
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    #pdf-canvas {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+
+    .loading-spinner {
+      text-align: center;
+      padding: 2rem;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .error-message {
+      text-align: center;
+      padding: 1.5rem;
+      color: #f44336;
+      background: rgba(244, 67, 54, 0.1);
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 32px;
+      color: rgba(255, 0, 0, 0.08);
+      pointer-events: none;
+      font-weight: bold;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
     @keyframes pulse {
       0%, 100% { transform: scale(0.8); opacity: 0.7; }
       50% { transform: scale(1); opacity: 1; }
@@ -397,25 +491,34 @@
         <p>✅ CompTIA Security+<br>✅ AWS Certified Security<br>✅ Cisco CCNA Cyber Ops</p>
       </div>
 
+      <!-- PDF Viewer Card -->
       <div class="project-card">
         <i class="fas fa-file-pdf"></i>
         <h3>Certification EBIOS RM</h3>
-        <p>Certificat EBIOS Risk Manager</p>
+        <p>Certificat EBIOS Risk Manager - 21 octobre 2025</p>
 
-      <iframe
-        id="cert-iframe"
-        style="width: 100%; height: 200px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 10px;"
-        loading="lazy"
-        sandbox="allow-scripts allow-same-origin"
-        title="Certification EBIOS RM">
-      </iframe>
-
-        <script>
-          const secretToken = "qLZrstrnSUQ694S4XRKB8wkW0XjTCfZizIzdRF910P0uVzEEXfgTIHPJckIryuDguKXsHCe7oDcUjt3S8Mv3BEWkFEm9xX0r8AlnowPPytKC35qpV8ZNJ3E6";
-
-          document.getElementById("cert-iframe").src =
-            `https://pdf-viewer-file.jrguerin.workers.dev?token=${secretToken}`;
-        </script>
+        <div class="pdf-viewer-container" id="pdf-viewer-container">
+          <div id="loading" class="loading-spinner">
+            ⏳ Chargement sécurisé...
+          </div>
+          
+          <div id="error" class="error-message" style="display: none;"></div>
+          
+          <div id="pdf-viewer" style="display: none;">
+            <div class="pdf-controls">
+              <button id="prev-page" title="Page précédente">← Préc.</button>
+              <span class="page-info">
+                <span id="current-page">1</span> / <span id="total-pages">-</span>
+              </span>
+              <button id="next-page" title="Page suivante">Suiv. →</button>
+            </div>
+            
+            <div style="position: relative;">
+              <canvas id="pdf-canvas"></canvas>
+              <div class="watermark">CONFIDENTIEL</div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -428,7 +531,9 @@
   </div>
 
   <script>
-    // Matrix rain background
+    // ========================================
+    // MATRIX RAIN BACKGROUND
+    // ========================================
     const canvas = document.getElementById("matrix-canvas");
     const ctx = canvas.getContext("2d");
 
@@ -462,6 +567,155 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    // ========================================
+    // PDF VIEWER SÉCURISÉ
+    // ========================================
+    
+    // Configuration PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // Configuration
+    const CONFIG = {
+      workerUrl: 'https://pdf-viewer-file.jrguerin.workers.dev',
+      token: 'qLZrstrnSUQ694S4XRKB8wkW0XjTCfZizIzdRF910P0uVzEEXfgTIHPJckIryuDguKXsHCe7oDcUjt3S8Mv3BEWkFEm9xX0r8AlnowPPytKC35qpV8ZNJ3E6',
+      scale: 1.2
+    };
+
+    // Variables globales
+    let pdfDoc = null;
+    let currentPage = 1;
+    let pageRendering = false;
+    let pageNumPending = null;
+
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const pdfCtx = pdfCanvas.getContext('2d');
+
+    // Charger le PDF
+    async function loadPDF() {
+      try {
+        console.log('📥 Chargement du PDF...');
+        
+        const response = await fetch(
+          `${CONFIG.workerUrl}?token=${CONFIG.token}`,
+          {
+            method: 'GET',
+            headers: { 'Accept': 'application/pdf' }
+          }
+        );
+        
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        
+        const arrayBuffer = await response.arrayBuffer();
+        console.log('✅ PDF téléchargé:', arrayBuffer.byteLength, 'octets');
+        
+        const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+        pdfDoc = await loadingTask.promise;
+        
+        console.log('✅ PDF chargé:', pdfDoc.numPages, 'pages');
+        
+        document.getElementById('total-pages').textContent = pdfDoc.numPages;
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('pdf-viewer').style.display = 'block';
+        
+        renderPage(currentPage);
+        
+      } catch (error) {
+        console.error('❌ Erreur:', error);
+        showError('Impossible de charger le document.');
+      }
+    }
+
+    // Afficher une page
+    function renderPage(num) {
+      pageRendering = true;
+      
+      pdfDoc.getPage(num).then(page => {
+        const viewport = page.getViewport({scale: CONFIG.scale});
+        pdfCanvas.height = viewport.height;
+        pdfCanvas.width = viewport.width;
+        
+        const renderContext = {
+          canvasContext: pdfCtx,
+          viewport: viewport
+        };
+        
+        const renderTask = page.render(renderContext);
+        
+        renderTask.promise.then(() => {
+          pageRendering = false;
+          
+          if (pageNumPending !== null) {
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+        });
+      });
+      
+      document.getElementById('current-page').textContent = num;
+      updateButtons();
+    }
+
+    // Gérer la file d'attente
+    function queueRenderPage(num) {
+      if (pageRendering) {
+        pageNumPending = num;
+      } else {
+        renderPage(num);
+      }
+    }
+
+    // Mettre à jour les boutons
+    function updateButtons() {
+      document.getElementById('prev-page').disabled = currentPage <= 1;
+      document.getElementById('next-page').disabled = currentPage >= pdfDoc.numPages;
+    }
+
+    // Afficher une erreur
+    function showError(message) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').style.display = 'block';
+      document.getElementById('error').textContent = '❌ ' + message;
+    }
+
+    // Navigation
+    document.getElementById('prev-page').addEventListener('click', () => {
+      if (currentPage <= 1) return;
+      currentPage--;
+      queueRenderPage(currentPage);
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+      if (currentPage >= pdfDoc.numPages) return;
+      currentPage++;
+      queueRenderPage(currentPage);
+    });
+
+    // Protections de sécurité
+    pdfCanvas.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      return false;
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'p')) {
+        e.preventDefault();
+        alert('⚠️ La sauvegarde de ce document est désactivée.');
+        return false;
+      }
+    });
+
+    pdfCanvas.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+      return false;
+    });
+
+    // Démarrage
+    console.log('🚀 Initialisation du viewer PDF sécurisé...');
+    loadPDF();
   </script>
 </body>
 </html>
