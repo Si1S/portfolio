@@ -408,7 +408,7 @@
       </div>
 
       <script>
-      fetch("pdf-viewer-file.jrguerin.workers.dev")
+      fetch("https://pdf-viewer-file.jrguerin.workers.dev")
         .then(res => res.json())
         .then(data => {
           document.getElementById("cert-iframe").src = data.url + "#toolbar=0";
