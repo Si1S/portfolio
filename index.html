@@ -396,6 +396,24 @@
         <h3>Certifications</h3>
         <p>✅ CompTIA Security+<br>✅ AWS Certified Security<br>✅ Cisco CCNA Cyber Ops</p>
       </div>
+      <div class="project-card">
+        <i class="fas fa-file-pdf"></i>
+        <h3>Certification EBIOS RM</h3>
+        <p>Certificat EBIOS Risk Manager</p>
+
+        <iframe id="cert-iframe"
+                style="width: 100%; height: 420px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 10px;"
+                loading="lazy">
+        </iframe>
+      </div>
+
+      <script>
+      fetch("pdf-viewer-file.jrguerin.workers.dev")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("cert-iframe").src = data.url + "#toolbar=0";
+        });
+      </script>
     </div>
   </section>
 
