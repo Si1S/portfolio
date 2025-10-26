@@ -19,7 +19,7 @@
     background-color: var(--background);
     color: var(--text);
     min-height: 100vh;
-    display: flex;
+    display: flex;q
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
