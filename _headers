@@ -21,7 +21,7 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
   # Content Security Policy - Allow data URLs for PDF and blob URLs
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://pdf-viewer-file.jrguerin.workers.dev; frame-src 'self' blob: data:; media-src 'self' blob: data:; object-src 'self' blob: data:; worker-src 'self' blob:; child-src 'self' blob: data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  #Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://pdf-viewer-file.jrguerin.workers.dev; frame-src 'self' blob: data:; media-src 'self' blob: data:; object-src 'self' blob: data:; worker-src 'self' blob:; child-src 'self' blob: data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
 
   # Cache control - 1 hour for static content
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
