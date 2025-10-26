@@ -5,8 +5,9 @@ let currentPage = 1;
 let pageRendering = false;
 let pageNumPending = null;
 
-const canvas = document.getElementById("pdf-canvas");
-const ctx = canvas.getContext("2d");
+// Renommé de "canvas" à "pdfCanvas"
+const pdfCanvas = document.getElementById("pdf-canvas");
+const ctx = pdfCanvas.getContext("2d");
 const currentPageSpan = document.getElementById("current-page");
 const totalPagesSpan = document.getElementById("total-pages");
 const prevButton = document.getElementById("prev-page");
@@ -23,7 +24,7 @@ async function loadPdf() {
     }
 
     const data = await response.json();
-    console.log('Données reçues:', data); // Pour debug
+    console.log('Données reçues:', data);
 
     // Charger le PDF via PDF.js avec la Data URL
     pdfDoc = await pdfjsLib.getDocument(data.url).promise;
@@ -40,8 +41,8 @@ function renderPage(num) {
   pageRendering = true;
   pdfDoc.getPage(num).then(page => {
     const viewport = page.getViewport({ scale: 1.2 });
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
+    pdfCanvas.height = viewport.height;
+    pdfCanvas.width = viewport.width;
 
     page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
       pageRendering = false;
