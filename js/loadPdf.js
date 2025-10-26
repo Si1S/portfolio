@@ -5,9 +5,8 @@ let currentPage = 1;
 let pageRendering = false;
 let pageNumPending = null;
 
-// Renommé de "canvas" à "pdfCanvas"
 const pdfCanvas = document.getElementById("pdf-canvas");
-const ctx = pdfCanvas.getContext("2d");
+const pdfCtx = pdfCanvas.getContext("2d");
 const currentPageSpan = document.getElementById("current-page");
 const totalPagesSpan = document.getElementById("total-pages");
 const prevButton = document.getElementById("prev-page");
@@ -15,7 +14,6 @@ const nextButton = document.getElementById("next-page");
 
 async function loadPdf() {
   try {
-    // Remplacez par l'URL de VOTRE worker
     const response = await fetch("https://pdf-viewer-file.jrguerin.workers.dev/get-presigned-pdf");
 
     if (!response.ok) {
@@ -24,11 +22,11 @@ async function loadPdf() {
     }
 
     const data = await response.json();
-    console.log('Données reçues:', data);
+    console.log('PDF chargé - Taille:', data.size, 'octets');
 
-    // Charger le PDF via PDF.js avec la Data URL
     pdfDoc = await pdfjsLib.getDocument(data.url).promise;
     totalPagesSpan.textContent = pdfDoc.numPages;
+    console.log('Nombre de pages:', pdfDoc.numPages);
 
     renderPage(currentPage);
   } catch (error) {
@@ -44,7 +42,7 @@ function renderPage(num) {
     pdfCanvas.height = viewport.height;
     pdfCanvas.width = viewport.width;
 
-    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
+    page.render({ canvasContext: pdfCtx, viewport: viewport }).promise.then(() => {
       pageRendering = false;
       if (pageNumPending !== null) {
         renderPage(pageNumPending);
