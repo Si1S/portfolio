@@ -16,7 +16,8 @@ async function loadPdf() {
     });
 
     if (!response.ok) {
-      throw new Error(`Erreur HTTP ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Erreur HTTP ${response.status}`);
     }
 
     const data = await response.json();
@@ -25,14 +26,14 @@ async function loadPdf() {
     pdfDoc = await pdfjsLib.getDocument(data.url).promise;
     console.log('📄 Nombre de pages:', pdfDoc.numPages);
 
-    // Restaurer le container original
+    // Restore the original container
     container.innerHTML = '<canvas id="pdf-canvas" style="border:1px solid rgba(0,0,0,0.1); border-radius:8px; width:100%;"></canvas>';
 
-    // Réassigner les références après le innerHTML
+    // Reassign references after innerHTML
     const canvas = document.getElementById("pdf-canvas");
     const ctx = canvas.getContext("2d");
 
-    // Rendre la première (et unique) page
+    // Make the first (and only) page
     const page = await pdfDoc.getPage(1);
     const viewport = page.getViewport({ scale: 1.5 });
     canvas.height = viewport.height;
@@ -41,11 +42,17 @@ async function loadPdf() {
     await page.render({ canvasContext: ctx, viewport: viewport }).promise;
     console.log('✅ Certificat affiché');
 
-    // Désactiver le clic droit sur le canvas
+    // 🔒 Disable right-click on the canvas
     canvas.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       return false;
     });
+
+    // 🔒 Disable selection and drag
+    canvas.style.userSelect = 'none';
+    canvas.style.webkitUserSelect = 'none';
+    canvas.style.mozUserSelect = 'none';
+    canvas.addEventListener('dragstart', (e) => e.preventDefault());
 
   } catch (error) {
     container.innerHTML = '<p style="color: #ff6b6b; text-align: center;">❌ Erreur lors du chargement du certificat</p>';

@@ -1,31 +1,25 @@
-:root {
-  --background: #0f0f11;
-  --text: #f5f5f7;
-  --accent: #00f0ff;
-  --surface: rgba(26, 26, 31, 0.7);
-  --surface-hover: rgba(37, 37, 45, 0.8);
-  --blur: 12px;
-}
+/* ========================================
+   Base Styles & Reset
+   ======================================== */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", system-ui, sans-serif;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  line-height: 1.6;
-  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0f0f11;
+  color: #e0e0e0;
   overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
 }
+
+/* ========================================
+   Matrix Rain Background Canvas
+   ======================================== */
 
 #matrix-canvas {
   position: fixed;
@@ -34,104 +28,141 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
+  pointer-events: none;
 }
+
+/* ========================================
+   Main Profile Card
+   ======================================== */
 
 .card {
-  backdrop-filter: blur(var(--blur));
-  background-color: var(--surface);
-  max-width: 520px;
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-  animation: fadeIn 1s ease forwards;
+  max-width: 600px;
+  margin: 80px auto 40px;
+  background: rgba(20, 20, 24, 0.85);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 50px rgba(0, 240, 255, 0.15);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  position: relative;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 60px rgba(0, 240, 255, 0.25);
+}
+
+/* ========================================
+   Card Header Section
+   ======================================== */
+
 .card-header {
-  padding: 2rem;
   text-align: center;
   position: relative;
 }
 
+/* Animated glow effect behind avatar */
 .glow {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
-  background: var(--accent);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.4), transparent 70%);
   border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.4;
+  animation: pulse 3s infinite;
   z-index: 0;
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Avatar icon */
 .avatar {
-  position: relative;
   width: 100px;
   height: 100px;
-  margin: 0 auto 1.2rem;
-  background-color: var(--surface-hover);
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #00d4ff, #0077ff);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.8rem;
-  color: var(--accent);
+  font-size: 2.5rem;
+  color: #fff;
+  position: relative;
   z-index: 1;
-  border: 2px solid rgba(0, 240, 255, 0.3);
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
 }
 
-.avatar:hover {
-  transform: scale(1.05);
-}
-
+/* Profile title */
 .title {
-  font-size: 1.9rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  position: relative;
-  z-index: 1;
+  font-size: 2rem;
+  color: #00f0ff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
 }
 
+/* Subtitle/job title */
 .subtitle {
-  position: relative;
-  color: var(--accent);
   font-size: 1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  color: #a0a0a0;
   margin-bottom: 1rem;
-  z-index: 1;
-  opacity: 0.9;
 }
 
+/* Badge container for skills */
 .badge-container {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
+/* Individual skill badge */
 .badge {
-  background-color: rgba(0, 240, 255, 0.1);
-  color: var(--accent);
-  padding: 0.4rem 0.8rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  background: rgba(0, 240, 255, 0.1);
+  color: #00f0ff;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  transition: all 0.3s;
 }
+
+.badge:hover {
+  background: rgba(0, 240, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   Card Body Section
+   ======================================== */
 
 .card-body {
-  padding: 0 2rem 2rem;
-  text-align: center;
+  margin-top: 2rem;
 }
 
+/* Bio/description text */
 .bio {
-  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  color: #c0c0c0;
   margin-bottom: 2rem;
+  font-size: 0.95rem;
 }
+
+/* ========================================
+   Statistics Cards
+   ======================================== */
 
 .stats {
   display: grid;
@@ -140,197 +171,315 @@ body {
   margin-bottom: 2rem;
 }
 
+/* Individual stat card */
 .stat-card {
-  background-color: var(--surface-hover);
-  padding: 1.2rem;
+  background: rgba(0, 240, 255, 0.05);
+  padding: 1rem;
   border-radius: 10px;
   text-align: center;
-  transition: transform 0.25s ease;
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  transition: all 0.3s;
 }
 
 .stat-card:hover {
-  transform: translateY(-5px);
+  background: rgba(0, 240, 255, 0.1);
+  transform: translateY(-3px);
 }
 
+/* Stat number (large number display) */
 .stat-number {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 0.4rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00f0ff;
+  margin-bottom: 0.3rem;
 }
 
+/* Stat label (description) */
 .stat-label {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #909090;
 }
+
+/* ========================================
+   Call-to-Action Buttons
+   ======================================== */
 
 .btn-container {
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
+/* Base button styles */
 .btn {
-  display: block;
-  padding: 0.9rem;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
 }
 
+/* Primary button (main action) */
 .btn-primary {
-  background-color: var(--accent);
-  color: var(--background);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  background: linear-gradient(135deg, #00d4ff, #0077ff);
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 240, 255, 0.5);
 }
 
+/* Secondary button (alternative action) */
 .btn-secondary {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 240, 255, 0.1);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.3);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
+  background: rgba(0, 240, 255, 0.2);
+  transform: translateY(-3px);
 }
 
-.footer {
+/* ========================================
+   System Status Monitor
+   ======================================== */
+
+.monitor {
   margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.social-link {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-color: var(--surface-hover);
+  text-align: center;
+  color: #00ff88;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text);
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
+  gap: 0.5rem;
 }
 
-.social-link:hover {
-  background-color: var(--accent);
-  color: var(--background);
-  transform: translateY(-4px) scale(1.1);
-}
-
-.monitor {
-  text-align: center;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  padding-bottom: 1rem;
-}
-
+/* Pulsing status indicator */
 .pulse {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
+  width: 10px;
+  height: 10px;
+  background: #00ff88;
   border-radius: 50%;
-  margin-right: 0.4rem;
-  animation: pulse 2s infinite;
+  animation: pulse-dot 1.5s infinite;
 }
 
-/* Projects Section */
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88;
+  }
+  50% {
+    box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+  }
+}
+
+/* ========================================
+   Projects & Certifications Section
+   ======================================== */
+
 .projects-section {
-  max-width: 1000px;
-  margin-top: 3rem;
-  text-align: center;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 2rem;
 }
 
+/* Section title */
 .section-title {
-  font-size: 1.8rem;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  text-align: center;
+  font-size: 2rem;
+  color: #00f0ff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
 }
 
+/* Grid layout for project cards */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 0 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
+/* Individual project card */
 .project-card {
-  background-color: var(--surface-hover);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: left;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  background: rgba(20, 20, 24, 0.85);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.2);
+  border-color: rgba(0, 240, 255, 0.4);
 }
 
+/* Project icon */
 .project-card i {
-  font-size: 1.8rem;
-  color: var(--accent);
-  margin-bottom: 0.8rem;
+  font-size: 2.5rem;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+  display: block;
 }
 
+/* Project title */
 .project-card h3 {
-  font-size: 1.1rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
+  color: #e0e0e0;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
 }
 
+/* Project description */
 .project-card p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.5;
+  color: #a0a0a0;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(0.8); opacity: 0.7; }
-  50% { transform: scale(1); opacity: 1; }
-}
+/* ========================================
+   PDF Viewer Security & Styling
+   ======================================== */
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 500px) {
-  .card { max-width: 90%; }
-  .title { font-size: 1.6rem; }
-  .avatar { width: 80px; height: 80px; font-size: 2.2rem; }
-  .stat-number { font-size: 1.4rem; }
-}
-
+/* PDF viewer container */
 #pdf-viewer-container {
   margin-top: 1rem;
   max-width: 100%;
+  position: relative;
 }
 
+/* PDF canvas element */
 #pdf-canvas {
   border: 1px solid rgba(0, 240, 255, 0.3);
   border-radius: 8px;
   width: 100%;
   box-shadow: 0 4px 20px rgba(0, 240, 255, 0.2);
-  /* Empêcher le clic droit sur le canvas */
+
+  /* Security: Prevent text selection and interaction */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+
+  /* Fade-in animation on load */
+  animation: fadeIn 0.8s ease-in;
+}
+
+/* Fade-in animation for PDF */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent selection of all elements within PDF container */
+#pdf-viewer-container * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* ========================================
+   Footer Section
+   ======================================== */
+
+.footer {
+  text-align: center;
+  margin: 60px auto 40px;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Social media links */
+.social-link {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00f0ff;
+  font-size: 1.5rem;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: rgba(0, 240, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
+}
+
+/* ========================================
+   Responsive Design - Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Adjust card padding on mobile */
+  .card {
+    margin: 40px 1rem;
+    padding: 1.5rem;
+  }
+
+  /* Smaller title on mobile */
+  .title {
+    font-size: 1.5rem;
+  }
+
+  /* Single column stats layout */
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack buttons vertically */
+  .btn-container {
+    flex-direction: column;
+  }
+
+  /* Full width buttons on mobile */
+  .btn {
+    width: 100%;
+  }
+
+  /* Smaller section title */
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  /* Single column project grid */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust projects section padding */
+  .projects-section {
+    padding: 0 1rem;
+  }
+}
+
+/* ========================================
+   Responsive Design - Tablet
+   ======================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Two-column layout for projects on tablet */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

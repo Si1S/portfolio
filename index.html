@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jean-René Guérin | Cybersecurity Professional</title>
 
+  <!-- Security meta tags -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noarchive">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- PDF.js -->
+  <!-- PDF.js library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
+  <!-- Matrix rain background canvas -->
   <canvas id="matrix-canvas"></canvas>
 
+  <!-- Main profile card -->
   <div class="card">
     <div class="card-header">
       <div class="glow"></div>
@@ -33,6 +41,7 @@
         Passionate about automation, cloud security, and proactive defense strategies.
       </p>
 
+      <!-- Statistics cards -->
       <div class="stats">
         <div class="stat-card"><div class="stat-number">99.9%</div><div class="stat-label">Uptime</div></div>
         <div class="stat-card"><div class="stat-number">15min</div><div class="stat-label">Avg Response</div></div>
@@ -40,85 +49,105 @@
         <div class="stat-card"><div class="stat-number">350+</div><div class="stat-label">Threats Mitigated</div></div>
       </div>
 
+      <!-- Call-to-action buttons -->
       <div class="btn-container">
         <a href="mailto:security@example.com" class="btn btn-primary">Contact Me</a>
         <a href="#" class="btn btn-secondary">Download Resume</a>
       </div>
     </div>
 
+    <!-- System status monitor -->
     <div class="monitor">
       <span class="pulse"></span> Monitoring system: Online
     </div>
   </div>
 
+  <!-- Projects and certifications section -->
   <section class="projects-section">
     <h2 class="section-title">Projects & Certifications</h2>
 
     <div class="projects-grid">
+      <!-- Project card: Network Hardening -->
       <div class="project-card">
         <i class="fas fa-network-wired"></i>
         <h3>Enterprise Network Hardening</h3>
         <p>Implemented advanced firewall rules and IDS systems reducing unauthorized access attempts by 80%.</p>
       </div>
 
+      <!-- Project card: Cloud Security -->
       <div class="project-card">
         <i class="fas fa-cloud"></i>
         <h3>Cloud Security Automation</h3>
         <p>Developed AWS Lambda scripts to automatically detect and isolate compromised EC2 instances.</p>
       </div>
 
+      <!-- Project card: SIEM -->
       <div class="project-card">
         <i class="fas fa-lock"></i>
         <h3>SIEM Optimization</h3>
         <p>Configured and optimized Splunk dashboards for real-time alerting and faster incident triage.</p>
       </div>
 
+      <!-- Project card: General Certifications -->
       <div class="project-card">
         <i class="fas fa-certificate"></i>
         <h3>Certifications</h3>
         <p>✅ CompTIA Security+<br>✅ AWS Certified Security<br>✅ Cisco CCNA Cyber Ops</p>
       </div>
 
+      <!-- Project card: EBIOS RM Certificate with PDF viewer -->
       <div class="project-card">
         <i class="fas fa-file-pdf"></i>
         <h3>Certification EBIOS RM</h3>
         <p>Certificat EBIOS Risk Manager</p>
 
+        <!-- PDF viewer container - Certificate will be loaded dynamically -->
         <div id="pdf-viewer-container" style="margin-top: 1rem; max-width: 600px;">
           <canvas id="pdf-canvas" style="border:1px solid rgba(0,0,0,0.1); border-radius:8px; width:100%;"></canvas>
         </div>
+      </div>
     </div>
   </section>
 
+  <!-- Footer with social links -->
   <div class="footer">
     <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
     <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
   </div>
 
+  <!-- Matrix rain animation script -->
   <script>
-    // Matrix rain background
+    // Matrix rain background effect
     const canvas = document.getElementById("matrix-canvas");
     const ctx = canvas.getContext("2d");
 
+    // Set canvas size to window dimensions
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const chars = "01";
+    // Matrix rain configuration
+    const chars = "01"; // Binary characters
     const fontSize = 14;
     const columns = Math.floor(canvas.width / fontSize);
     const drops = Array(columns).fill(0);
 
+    // Draw matrix rain animation frame
     function drawMatrix() {
+      // Fade effect for trailing characters
       ctx.fillStyle = "rgba(15, 15, 17, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw characters
       ctx.fillStyle = "rgba(0, 240, 255, 0.3)";
       ctx.font = fontSize + "px monospace";
 
       for (let i = 0; i < drops.length; i++) {
+        // Pick random character
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
+        // Reset drop to top randomly
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
@@ -126,13 +155,89 @@
       }
     }
 
+    // Run animation at ~22 FPS
     setInterval(drawMatrix, 45);
+
+    // Handle window resize
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
   </script>
 
+  <!-- Load PDF viewer script -->
   <script src="js/loadPdf.js"></script>
+
+  <!-- 🔒 Security protections for PDF viewer -->
+  <script>
+    // Block sensitive keyboard shortcuts on the PDF
+    document.addEventListener('keydown', (e) => {
+      const pdfContainer = document.getElementById('pdf-viewer-container');
+
+      // Check if we're interacting with or near the PDF container
+      if (e.target.closest('#pdf-viewer-container') || document.activeElement === pdfContainer) {
+
+        // Block Ctrl+S (Save) and Cmd+S on Mac
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          e.stopPropagation();
+          console.warn('⚠️ Save disabled for this document');
+          return false;
+        }
+
+        // Block Ctrl+P (Print) and Cmd+P on Mac
+        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+          e.preventDefault();
+          e.stopPropagation();
+          console.warn('⚠️ Print disabled for this document');
+          return false;
+        }
+
+        // Block Ctrl+Shift+S (Save as)
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'S' || e.key === 's')) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      }
+    });
+
+    // Block printing via browser menu
+    window.addEventListener('beforeprint', (e) => {
+      const pdfCanvas = document.getElementById('pdf-canvas');
+      if (pdfCanvas) {
+        // Save original display state
+        pdfCanvas.dataset.originalDisplay = pdfCanvas.style.display;
+        // Hide canvas during print
+        pdfCanvas.style.display = 'none';
+      }
+    });
+
+    window.addEventListener('afterprint', (e) => {
+      const pdfCanvas = document.getElementById('pdf-canvas');
+      if (pdfCanvas) {
+        // Restore display
+        pdfCanvas.style.display = pdfCanvas.dataset.originalDisplay || 'block';
+      }
+    });
+
+    // Block drag & drop of the canvas
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check periodically for canvas existence (it's loaded dynamically)
+      const checkCanvas = setInterval(() => {
+        const pdfCanvas = document.getElementById('pdf-canvas');
+        if (pdfCanvas) {
+          pdfCanvas.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+            return false;
+          });
+          clearInterval(checkCanvas);
+        }
+      }, 100);
+
+      // Stop checking after 5 seconds if canvas doesn't appear
+      setTimeout(() => clearInterval(checkCanvas), 5000);
+    });
+  </script>
 </body>
 </html>
