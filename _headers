@@ -1,12 +1,44 @@
-Content-Security-Policy:
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-  style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-  font-src 'self' https://cdnjs.cloudflare.com;
-  img-src 'self' data: https:;
-  connect-src 'self' https://pdf-viewer-file.jrguerin.workers.dev https://*.r2.cloudflarestorage.com;
-  worker-src 'self' blob:;
-  child-src 'self' blob:;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self';
+# Global headers for all pages
+/*
+  # Security headers
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+
+  # Content Security Policy (semi-dynamic: contains {{nonce}} placeholder replaced by Worker)
+  # - script-src uses a nonce placeholder (no unsafe-inline)
+  # - connect-src allows your pdf worker + R2 presigned hosts
+  Content-Security-Policy:q
+    default-src 'self';
+    script-src 'nonce-{{nonce}}' 'self' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-hashes' 'sha256-PLACEHOLDER-IF-NEEDED';
+    font-src 'self' https://cdnjs.cloudflare.com;
+    img-src 'self' data: https:;
+    connect-src 'self' https://pdf-viewer-file.jrguerin.workers.dev https://*.r2.cloudflarestorage.com;
+    worker-src 'self' blob:;
+    child-src 'self' blob:;
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'self';
+
+  # Cache (general)
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# HTML pages — no caching
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# JavaScript — 1 year cache (immutable)
+# (PDF.js is local per your note; keep loader no-cache)
+js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS — 1 year cache (immutable)
+css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# No caching for PDF viewer loader script
+/js/loadPdf.js
+  Cache-Control: no-cache, no-store, must-revalidate
