@@ -1,8 +1,5 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-// URL de ton Worker Cloudflare avec token sécurisé
-const pdfUrl = "https://pdf-viewer-file.jrguerin.workers.dev?token=qLZrstrnSUQ694S4XRKB8wkW0XjTCfZizIzdRF910P0uVzEEXfgTIHPJckIryuDguKXsHCe7oDcUjt3S8Mv3BEWkFEm9xX0r8AlnowPPytKC35qpV8ZNJ3E6";
-
 let pdfDoc = null;
 let currentPage = 1;
 let pageRendering = false;
@@ -17,17 +14,19 @@ const nextButton = document.getElementById("next-page");
 
 async function loadPdf() {
   try {
-    const response = await fetch(pdfUrl, { headers: { 'Accept': 'application/pdf' } });
+    // Récupérer l'URL présignée du Worker
+    const response = await fetch("https://pdf-viewer-file.jrguerin.workers.dev/get-presigned-pdf");
     if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-    const arrayBuffer = await response.arrayBuffer();
+    const data = await response.json();
 
-    pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-
+    // Charger le PDF via PDF.js avec l'URL présignée
+    pdfDoc = await pdfjsLib.getDocument(data.url).promise;
     totalPagesSpan.textContent = pdfDoc.numPages;
 
     renderPage(currentPage);
   } catch (error) {
     alert("Erreur lors du chargement du PDF : " + error.message);
+    console.error(error);
   }
 }
 
@@ -38,10 +37,7 @@ function renderPage(num) {
     canvas.height = viewport.height;
     canvas.width = viewport.width;
 
-    const renderContext = { canvasContext: ctx, viewport: viewport };
-    const renderTask = page.render(renderContext);
-
-    renderTask.promise.then(() => {
+    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
       pageRendering = false;
       if (pageNumPending !== null) {
         renderPage(pageNumPending);
