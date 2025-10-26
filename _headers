@@ -5,5 +5,31 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
-  Content-Security-Policy: default-src 'self'; script-src 'nonce-{{nonce}}' 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-hashes' 'sha256-PLACEHOLDER-IF-NEEDED'; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https://pdf-viewer-file.jrguerin.workers.dev https://*.r2.cloudflarestorage.com https://cdnjs.cloudflare.com; connect-src 'self' https://pdf-viewer-file.jrguerin.workers.dev https://*.r2.cloudflarestorage.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+  Content-Security-Policy: default-src 'self'; \
+    script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; \
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; \
+    font-src 'self' https://cdnjs.cloudflare.com; \
+    img-src 'self' data: https://pdf-viewer-file.jrguerin.workers.dev https://*.r2.cloudflarestorage.com https://cdnjs.cloudflare.com; \
+    connect-src 'self' https://pdf-viewer-file.jrguerin.workers.dev https://*.r2.cloudflarestorage.com; \
+    worker-src 'self' blob:; \
+    child-src 'self' blob:; \
+    frame-ancestors 'none'; \
+    base-uri 'self'; \
+    form-action 'self';
   Cache-Control: public, max-age=3600, must-revalidate
+
+# HTML pages — no caching
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# JavaScript — 1 year cache (immutable)
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS — 1 year cache (immutable)
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# PDF viewer loader script — no caching
+/js/loadPdf.js
+  Cache-Control: no-cache, no-store, must-revalidate
