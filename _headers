@@ -10,7 +10,7 @@
   # Content Security Policy (semi-dynamic: contains {{nonce}} placeholder replaced by Worker)
   # - script-src uses a nonce placeholder (no unsafe-inline)
   # - connect-src allows your pdf worker + R2 presigned hosts
-  Content-Security-Policy:q
+  Content-Security-Policy:
     default-src 'self';
     script-src 'nonce-{{nonce}}' 'self' https://cdnjs.cloudflare.com;
     style-src 'self' 'unsafe-hashes' 'sha256-PLACEHOLDER-IF-NEEDED';
