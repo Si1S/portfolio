@@ -14,19 +14,25 @@ const nextButton = document.getElementById("next-page");
 
 async function loadPdf() {
   try {
-    // Récupérer l'URL présignée du Worker
+    // Remplacez par l'URL de VOTRE worker
     const response = await fetch("https://pdf-viewer-file.jrguerin.workers.dev/get-presigned-pdf");
-    if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-    const data = await response.json();
 
-    // Charger le PDF via PDF.js avec l'URL présignée
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Erreur HTTP ${response.status}: ${errorData.error || 'Erreur inconnue'}`);
+    }
+
+    const data = await response.json();
+    console.log('Données reçues:', data); // Pour debug
+
+    // Charger le PDF via PDF.js avec la Data URL
     pdfDoc = await pdfjsLib.getDocument(data.url).promise;
     totalPagesSpan.textContent = pdfDoc.numPages;
 
     renderPage(currentPage);
   } catch (error) {
+    console.error('Erreur complète:', error);
     alert("Erreur lors du chargement du PDF : " + error.message);
-    console.error(error);
   }
 }
 
