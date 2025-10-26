@@ -1,76 +1,56 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 let pdfDoc = null;
-let currentPage = 1;
-let pageRendering = false;
-let pageNumPending = null;
-
 const pdfCanvas = document.getElementById("pdf-canvas");
 const pdfCtx = pdfCanvas.getContext("2d");
-const currentPageSpan = document.getElementById("current-page");
-const totalPagesSpan = document.getElementById("total-pages");
-const prevButton = document.getElementById("prev-page");
-const nextButton = document.getElementById("next-page");
 
 async function loadPdf() {
+  const container = document.getElementById("pdf-viewer-container");
+  container.innerHTML = '<p style="color: #00f0ff; text-align: center;">⏳ Chargement du certificat...</p>';
+
   try {
-    const response = await fetch("https://pdf-viewer-file.jrguerin.workers.dev/get-presigned-pdf");
+    const response = await fetch("https://pdf-viewer-file.jrguerin.workers.dev/get-presigned-pdf", {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Erreur HTTP ${response.status}: ${errorData.error || 'Erreur inconnue'}`);
+      throw new Error(`Erreur HTTP ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('PDF chargé - Taille:', data.size, 'octets');
+    console.log('✅ PDF chargé - Taille:', data.size, 'octets');
 
     pdfDoc = await pdfjsLib.getDocument(data.url).promise;
-    totalPagesSpan.textContent = pdfDoc.numPages;
-    console.log('Nombre de pages:', pdfDoc.numPages);
+    console.log('📄 Nombre de pages:', pdfDoc.numPages);
 
-    renderPage(currentPage);
+    // Restaurer le container original
+    container.innerHTML = '<canvas id="pdf-canvas" style="border:1px solid rgba(0,0,0,0.1); border-radius:8px; width:100%;"></canvas>';
+
+    // Réassigner les références après le innerHTML
+    const canvas = document.getElementById("pdf-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Rendre la première (et unique) page
+    const page = await pdfDoc.getPage(1);
+    const viewport = page.getViewport({ scale: 1.5 });
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+    console.log('✅ Certificat affiché');
+
+    // Désactiver le clic droit sur le canvas
+    canvas.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      return false;
+    });
+
   } catch (error) {
-    console.error('Erreur complète:', error);
-    alert("Erreur lors du chargement du PDF : " + error.message);
+    container.innerHTML = '<p style="color: #ff6b6b; text-align: center;">❌ Erreur lors du chargement du certificat</p>';
+    console.error('❌ Erreur complète:', error);
   }
 }
-
-function renderPage(num) {
-  pageRendering = true;
-  pdfDoc.getPage(num).then(page => {
-    const viewport = page.getViewport({ scale: 1.2 });
-    pdfCanvas.height = viewport.height;
-    pdfCanvas.width = viewport.width;
-
-    page.render({ canvasContext: pdfCtx, viewport: viewport }).promise.then(() => {
-      pageRendering = false;
-      if (pageNumPending !== null) {
-        renderPage(pageNumPending);
-        pageNumPending = null;
-      }
-    });
-  });
-
-  currentPageSpan.textContent = num;
-  prevButton.disabled = num <= 1;
-  nextButton.disabled = num >= pdfDoc.numPages;
-}
-
-function queueRenderPage(num) {
-  if (pageRendering) pageNumPending = num;
-  else renderPage(num);
-}
-
-prevButton.addEventListener('click', () => {
-  if (currentPage <= 1) return;
-  currentPage--;
-  queueRenderPage(currentPage);
-});
-
-nextButton.addEventListener('click', () => {
-  if (currentPage >= pdfDoc.numPages) return;
-  currentPage++;
-  queueRenderPage(currentPage);
-});
 
 window.addEventListener('load', loadPdf);
