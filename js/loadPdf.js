@@ -1,5 +1,6 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
+// URL de ton Worker Cloudflare avec token sécurisé
 const pdfUrl = "https://pdf-viewer-file.jrguerin.workers.dev?token=qLZrstrnSUQ694S4XRKB8wkW0XjTCfZizIzdRF910P0uVzEEXfgTIHPJckIryuDguKXsHCe7oDcUjt3S8Mv3BEWkFEm9xX0r8AlnowPPytKC35qpV8ZNJ3E6";
 
 let pdfDoc = null;
@@ -16,13 +17,11 @@ const nextButton = document.getElementById("next-page");
 
 async function loadPdf() {
   try {
-    const response = await fetch(pdfUrl, {headers: {'Accept': 'application/pdf'}});
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
-    }
+    const response = await fetch(pdfUrl, { headers: { 'Accept': 'application/pdf' } });
+    if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
     const arrayBuffer = await response.arrayBuffer();
 
-    pdfDoc = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+    pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
     totalPagesSpan.textContent = pdfDoc.numPages;
 
@@ -35,16 +34,13 @@ async function loadPdf() {
 function renderPage(num) {
   pageRendering = true;
   pdfDoc.getPage(num).then(page => {
-    const viewport = page.getViewport({scale: 1.2});
+    const viewport = page.getViewport({ scale: 1.2 });
     canvas.height = viewport.height;
     canvas.width = viewport.width;
 
-    const renderContext = {
-      canvasContext: ctx,
-      viewport: viewport
-    };
-
+    const renderContext = { canvasContext: ctx, viewport: viewport };
     const renderTask = page.render(renderContext);
+
     renderTask.promise.then(() => {
       pageRendering = false;
       if (pageNumPending !== null) {
@@ -55,17 +51,13 @@ function renderPage(num) {
   });
 
   currentPageSpan.textContent = num;
-
   prevButton.disabled = num <= 1;
   nextButton.disabled = num >= pdfDoc.numPages;
 }
 
 function queueRenderPage(num) {
-  if (pageRendering) {
-    pageNumPending = num;
-  } else {
-    renderPage(num);
-  }
+  if (pageRendering) pageNumPending = num;
+  else renderPage(num);
 }
 
 prevButton.addEventListener('click', () => {
