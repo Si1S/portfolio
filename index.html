@@ -3,109 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jean-René Guérin | Cybersecurity Professional</title>
-
+  <title>Jean-René Guérin | Analyste SOC & Ingénieur infrastructures</title>
   <!-- Security meta tags -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta name="robots" content="noarchive">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css" />
-
   <!-- PDF.js library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
   <!-- Matrix rain background canvas -->
   <canvas id="matrix-canvas"></canvas>
-
   <!-- Main profile card -->
   <div class="card">
     <div class="card-header">
       <div class="glow"></div>
       <div class="avatar"><i class="fas fa-shield-alt"></i></div>
       <h1 class="title">Jean-René Guérin</h1>
-      <div class="subtitle">System Admin & SOC Analyst</div>
+      <div class="subtitle">Analyste SOC Junior & Ingénieur infrastructures sécurisées</div>
       <div class="badge-container">
-        <div class="badge">Cybersecurity</div>
-        <div class="badge">DevOps</div>
-        <div class="badge">Cloud</div>
+        <div class="badge">Blue Team</div>
+        <div class="badge">Active Directory</div>
+        <div class="badge">Automation</div>
       </div>
     </div>
 
     <div class="card-body">
       <p class="bio">
-        Expert in securing infrastructures, monitoring systems, and mitigating threats.
-        Passionate about automation, cloud security, and proactive defense strategies.
+        Ingénieur infrastructures & sécurité avec plus de 15 ans d'expérience sur des environnements
+        Windows / Linux, virtualisation, stockage et réseau, aujourd'hui focalisé sur la cybersécurité
+        opérationnelle&nbsp;: durcissement AD, gestion des vulnérabilités, SIEM et réponse à incident.
       </p>
 
       <!-- Statistics cards -->
       <div class="stats">
-        <div class="stat-card"><div class="stat-number">99.9%</div><div class="stat-label">Uptime</div></div>
-        <div class="stat-card"><div class="stat-number">15min</div><div class="stat-label">Avg Response</div></div>
-        <div class="stat-card"><div class="stat-number">200+</div><div class="stat-label">Systems Managed</div></div>
-        <div class="stat-card"><div class="stat-number">350+</div><div class="stat-label">Threats Mitigated</div></div>
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Serveurs gérés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Années multi‑datacenters</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Ans AD / Windows</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Projets cyber certifiants</div>
+        </div>
       </div>
 
       <!-- Call-to-action buttons -->
       <div class="btn-container">
-        <a href="mailto:security@example.com" class="btn btn-primary">Contact Me</a>
-        <a href="#" class="btn btn-secondary">Download Resume</a>
+        <a href="mailto:jrguerin@gmail.com" class="btn btn-primary">Me contacter</a>
+        <a href="CV_Jean-Rene_Guerin_2025.pdf" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+          Télécharger mon CV
+        </a>
       </div>
     </div>
 
     <!-- System status monitor -->
     <div class="monitor">
-      <span class="pulse"></span> Monitoring system: Online
+      <span class="pulse"></span> Profil : disponible pour un poste d'Analyste SOC / Blue Team
     </div>
+
   </div>
 
   <!-- Projects and certifications section -->
   <section class="projects-section">
-    <h2 class="section-title">Projects & Certifications</h2>
-
+    <h2 class="section-title">Projets & réalisations</h2>
     <div class="projects-grid">
-      <!-- Project card: Network Hardening -->
+
+      <!-- Project card: Cylentra Robotics (SOC / SIEM) -->
+      <div class="project-card">
+        <i class="fas fa-eye"></i>
+        <h3>Projet SOC – Cylentra Robotics</h3>
+        <p>
+          Mise en place d'un SIEM Wazuh pour monitorer un serveur de production, création de règles
+          de détection personnalisées, réalisation d'un pentest ciblé et rédaction d'un rapport
+          d'incident complet (IOCs, TTPs, recommandations).
+        </p>
+      </div>
+
+      <!-- Project card: Infra Attack & Defense -->
       <div class="project-card">
         <i class="fas fa-network-wired"></i>
-        <h3>Enterprise Network Hardening</h3>
-        <p>Implemented advanced firewall rules and IDS systems reducing unauthorized access attempts by 80%.</p>
+        <h3>Infra Attack &amp; Defense – CTF</h3>
+        <p>
+          Conception et déploiement d'une infrastructure complète pour une PME fictive
+          (AD, serveur web, base de données, partage de fichiers, sauvegardes, monitoring),
+          participation à un CTF Attack &amp; Defense en équipe (attaque et défense d'infrastructures).
+        </p>
       </div>
 
-      <!-- Project card: Cloud Security -->
+      <!-- Project card: Nova Syndicate -->
       <div class="project-card">
-        <i class="fas fa-cloud"></i>
-        <h3>Cloud Security Automation</h3>
-        <p>Developed AWS Lambda scripts to automatically detect and isolate compromised EC2 instances.</p>
+        <i class="fas fa-building"></i>
+        <h3>Nova Syndicate – Multi‑sites & résilience</h3>
+        <p>
+          Design d'une infrastructure centralisée pour une PME logistique (sites Lyon / Marseille),
+          mise en place d'AD, file server, SQL Server, virtualisation, monitoring et plans BCP / DRP
+          avec scripts d'automatisation pour améliorer la résilience.
+        </p>
       </div>
 
-      <!-- Project card: SIEM -->
+      <!-- Project card: Numberly AD & IAM -->
       <div class="project-card">
-        <i class="fas fa-lock"></i>
-        <h3>SIEM Optimization</h3>
-        <p>Configured and optimized Splunk dashboards for real-time alerting and faster incident triage.</p>
+        <i class="fas fa-user-shield"></i>
+        <h3>Numberly – AD &amp; IAM</h3>
+        <p>
+          Restructuration et durcissement d'Active Directory (14 ➜ 4 DC), sécurisation AD/ADCS
+          avec PingCastle, Purple Knight, BloodHound, Certipy et Harden AD, centralisation des logs
+          AD dans Graylog, mise en place et automatisation de l'IAM sur Azure AD / Intune et GCP.
+        </p>
       </div>
 
-      <!-- Project card: General Certifications -->
+      <!-- Project card: Jedha Bootcamp -->
       <div class="project-card">
-        <i class="fas fa-certificate"></i>
-        <h3>Certifications</h3>
-        <p>✅ CompTIA Security+<br>✅ AWS Certified Security<br>✅ Cisco CCNA Cyber Ops</p>
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Bootcamp Cybersécurité Fullstack</h3>
+        <p>
+          Formation intensive (Jedha, RNCP niveau 6) couvrant reconnaissance, Red Team (pentest
+          réseaux / Web / AD / Docker), Blue Team (SOC, détection &amp; réponse), techniques
+          furtives et reporting, avec forts volumes de labs, CTF et projets concrets.
+        </p>
       </div>
 
-      <!-- Project card: EBIOS RM Certificate with PDF viewer -->
+      <!-- Project card: EBIOS RM (MOOC) -->
+      <div class="project-card">
+        <i class="fas fa-file-shield"></i>
+        <h3>MOOC EBIOS Risk Manager</h3>
+        <p>
+          Validation d'un MOOC d'introduction à la méthode EBIOS Risk Manager (Club EBIOS / ANSSI),
+          intégrant la démarche d'analyse de risque dans la vision globale de la sécurité.
+        </p>
+      </div>
+
+      <!-- Optional PDF viewer card: CV or certificate -->
       <div class="project-card">
         <i class="fas fa-file-pdf"></i>
-        <h3>Certification EBIOS RM</h3>
-        <p>Certificat EBIOS Risk Manager</p>
-
-        <!-- PDF viewer container - Certificate will be loaded dynamically -->
+        <h3>CV &amp; documents</h3>
+        <p>
+          Visualisation directe de mon CV ou de documents de certification via le viewer PDF intégré.
+        </p>
         <div id="pdf-viewer-container" style="margin-top: 1rem; max-width: 600px;">
           <canvas id="pdf-canvas" style="border:1px solid rgba(0,0,0,0.1); border-radius:8px; width:100%;"></canvas>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -118,9 +168,9 @@
       <i class="fab fa-linkedin"></i>
     </a>
   </div>
+
   <script src="js/matrix.js"></script>
   <script src="js/loadPdf.js"></script>
   <script src="js/security.js"></script>
-
 </body>
 </html>
