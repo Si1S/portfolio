@@ -272,6 +272,8 @@ body {
   animation: pulse-dot 1.5s infinite;
 }
 
+.pulse{ outline: 1px solid red; }
+
 @keyframes pulse-dot {
   0%, 100% {
     box-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88;
