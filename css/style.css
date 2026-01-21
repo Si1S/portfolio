@@ -250,39 +250,26 @@ body {
 /* ========================================
    System Status Monitor
    ======================================== */
-
-.monitor {
-  margin-top: 2rem;
-  text-align: center;
-  color: #00ff88;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-/* Pulsing status indicator */
-.pulse {
-  width: 10px;
-  height: 10px;
-  background: #00ff88;
-  border-radius: 50%;
-  animation: pulse-dot 1.5s infinite;
-}
-
 .monitor{
   margin-top: 2rem;
   color: #00ff88;
   font-size: 0.9rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  line-height: 1;
+  text-align: left;
+  line-height: 1.35;
 }
 
-/* Pulsing status indicator */
+.card { text-align: center; }
+.monitor{ margin-left: auto; margin-right: auto; }
+
+.monitor-text{
+  display: inline-block;
+  text-align: center;
+  max-width: 520px;
+}
+
 .pulse{
   display: inline-block;
   flex: 0 0 auto;
@@ -292,6 +279,7 @@ body {
   background: #00ff88;
   animation: pulse-dot 1.5s infinite;
 }
+
 
 @keyframes pulse-dot {
   0%, 100% {
