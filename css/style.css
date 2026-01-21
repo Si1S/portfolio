@@ -250,29 +250,16 @@ body {
 /* ========================================
    System Status Monitor
    ======================================== */
-.monitor{
-  margin-top: 2rem;
-  color: #00ff88;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.monitor-text{
-  line-height: 1.35;
-}
-
-.pulse{
-  display: inline-block;
+.monitor .pulse{
+  display: inline-block !important;
   width: 10px;
   height: 10px;
-  margin-right: 0.5rem;
-  border-radius: 50%;
   background: #00ff88;
+  border-radius: 50%;
+  margin-right: 0.5rem;
   vertical-align: middle;
-  animation: pulse-dot 1.5s infinite;
+  outline: 1px solid red; /* debug */
 }
-
-.pulse{ outline: 1px solid red; }
 
 @keyframes pulse-dot {
   0%, 100% {
