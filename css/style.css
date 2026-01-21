@@ -271,6 +271,28 @@ body {
   animation: pulse-dot 1.5s infinite;
 }
 
+.monitor{
+  margin-top: 2rem;
+  color: #00ff88;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1;
+}
+
+/* Pulsing status indicator */
+.pulse{
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00ff88;
+  animation: pulse-dot 1.5s infinite;
+}
+
 @keyframes pulse-dot {
   0%, 100% {
     box-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88;
