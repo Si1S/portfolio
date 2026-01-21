@@ -254,30 +254,25 @@ body {
   margin-top: 2rem;
   color: #00ff88;
   font-size: 0.9rem;
-
-  display: grid;
-  grid-template-columns: 12px 1fr;
-  align-items: center;
-  gap: 0.6rem;
-
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center;
 }
 
 .monitor-text{
-  text-align: center;
+  display: inline;
   line-height: 1.35;
-  max-width: 520px;
 }
 
 .pulse{
+  display: inline-block;
   width: 10px;
   height: 10px;
+  margin-right: 0.5rem;
   border-radius: 50%;
   background: #00ff88;
+  vertical-align: middle;
   animation: pulse-dot 1.5s infinite;
 }
+
 
 @keyframes pulse-dot {
   0%, 100% {
@@ -354,7 +349,7 @@ body {
 
 /* Project links */
 .project-card a:link{
-  color: #7df9ff;
+  color: #9ffcff;
   text-decoration: underline;
 }
 
@@ -367,9 +362,8 @@ body {
 }
 
 .project-card a:active{
-  color: #b8ffff;
+  color: #d9ffff;
 }
-
 
 /* ========================================
    PDF Viewer Security & Styling
