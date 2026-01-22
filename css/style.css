@@ -251,7 +251,7 @@ body {
    System Status Monitor
    ======================================== */
 .monitor .pulse{
-  display: inline-block !important;
+  display: inline-block;
   width: 10px;
   height: 10px;
   background: #00ff88;
