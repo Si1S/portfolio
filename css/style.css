@@ -250,15 +250,24 @@ body {
 /* ========================================
    System Status Monitor
    ======================================== */
-.monitor .pulse{
-  display: inline-block;
+.monitor {
+  margin-top: 2rem;
+  text-align: center;
+  color: #00ff88;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Pulsing status indicator */
+.pulse {
   width: 10px;
   height: 10px;
   background: #00ff88;
   border-radius: 50%;
-  margin-right: 0.5rem;
-  vertical-align: middle;
-  outline: 1px solid red; /* debug */
+  animation: pulse-dot 1.5s infinite;
 }
 
 @keyframes pulse-dot {
@@ -461,8 +470,15 @@ body {
   }
 
   /* Full width buttons on mobile */
-  .btn {
-    width: 100%;
+  .btn{
+    width: auto;
+    max-width: 320px;
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-container{
+    justify-content: center;
   }
 
   /* Smaller section title */
